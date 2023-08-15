@@ -8,6 +8,6 @@ package br.edu.ifsul.cc.lpoo.om.model;
  *
  * @author 20202PF.CC0012
  */
-public class FormaPagamento {
-    
+public enum FormaPagamento {
+    CARTAO_CREDITO, CARTAO_DEBITO, PIX, PARCELAMENTO;
 }
