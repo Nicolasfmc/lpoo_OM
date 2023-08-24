@@ -26,7 +26,8 @@ public class Equipe implements Serializable {
     private String especialidades;
     
     @ManyToMany
-    @Column(nullable = false)
+    @JoinTable(name = "tb_equipe_funcionario", joinColumns = {@JoinColumn(name = "equipe_id")},
+            inverseJoinColumns = {@JoinColumn(name = "funcionario_ctps")})
     private List<Funcionario> funcionarios;
     
     public Equipe() {}

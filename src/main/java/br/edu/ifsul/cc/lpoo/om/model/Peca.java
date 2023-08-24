@@ -21,7 +21,7 @@ public class Peca implements Serializable {
     @Column(nullable = false, length = 100)
     private String nome;
     
-    @Column(nullable = false, length = 10)
+    @Column(nullable = false, precision = 2)
     private Float valor;
     
     @Column(nullable = false, length = 100)

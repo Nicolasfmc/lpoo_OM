@@ -15,12 +15,14 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "tb_cliente")
-public class Cliente extends Pessoa implements Serializable {
+@DiscriminatorValue(value = "C")
+public class Cliente extends Pessoa {
     @Column(nullable = true)
     private String observacoes;
 
     @ManyToMany
-    @Column(nullable = true)
+    @JoinTable(name = "tb_cliente_veiculo", joinColumns = {@JoinColumn(name = "cliente_cpf")},
+            inverseJoinColumns = {@JoinColumn(name = "veiculo_id")})
     private List<Veiculo> veiculos;
     
     public Cliente() {}

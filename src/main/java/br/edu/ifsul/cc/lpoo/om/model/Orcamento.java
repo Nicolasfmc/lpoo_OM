@@ -26,24 +26,24 @@ public class Orcamento implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Calendar data;
     
-    @ManyToMany
-    @Column(nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "cliente_cpf", nullable = false)
     private Cliente cliente;
     
-    @ManyToMany
-    @Column(nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "funcionario_cpf", nullable = false)
     private Funcionario funcionario;
     
-    @ManyToOne
-    @Column(nullable = false)
+    @ManyToMany
+    @JoinTable(name = "tb_orcamento_peca", joinColumns = {@JoinColumn(name = "orcamento_id")}, inverseJoinColumns = {@JoinColumn(name = "peca_id")})
     private Peca peca;
     
-    @ManyToOne
-    @Column(nullable = false)
+    @ManyToMany
+    @JoinTable(name = "tb_orcamento_maoobra", joinColumns = {@JoinColumn(name = "orcamento_id")}, inverseJoinColumns = {@JoinColumn(name = "maoobra_id")})
     private MaoObra maoObra;
     
-    @ManyToOne
-    @Column(nullable = false)
+    @ManyToMany
+    @JoinTable(name = "tb_orcamento_veiculo", joinColumns = {@JoinColumn(name = "orcamento_id")}, inverseJoinColumns = {@JoinColumn(name = "veiculo_id")})
     private Veiculo veiculo;
     
     public Orcamento() {}

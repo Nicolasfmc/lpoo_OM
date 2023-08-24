@@ -30,12 +30,12 @@ public class Pagamento implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Calendar data_pagamento;
     
-    @Column(nullable = false)
+    @Column(nullable = false, precision = 2)
     private Float valor;
     
     @ManyToOne
-    @Column(nullable = false)
-    private FormaPagamento formaPagamento;
+    @JoinColumn(nullable = false, name = "servico_id")
+    private Servico servico;
     
     public Pagamento () {}
 
@@ -109,19 +109,15 @@ public class Pagamento implements Serializable {
         this.valor = valor;
     }
 
-    /**
-     * @return the formaPagamento
-     */
-    public FormaPagamento getFormaPagamento() {
-        return formaPagamento;
+    public Servico getServico() {
+        return servico;
     }
 
-    /**
-     * @param formaPagamento the formaPagamento to set
-     */
-    public void setFormaPagamento(FormaPagamento formaPagamento) {
-        this.formaPagamento = formaPagamento;
+    public void setServico(Servico servico) {
+        this.servico = servico;
     }
+
+    
     
     
 }

@@ -16,16 +16,17 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "tb_funcionario")
-public class Funcionario extends Pessoa implements Serializable {
+@DiscriminatorValue(value = "F")
+public class Funcionario extends Pessoa {
     @Column(nullable = false)
     private String numero_ctps;
     
     @Column(nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Calendar data_admissao;
     
     @Column(nullable = true)
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Calendar data_demissao;
     
     @ManyToOne

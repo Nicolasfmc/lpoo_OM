@@ -17,7 +17,7 @@ public class PersistenciaJDBC implements InterfacePersistencia {
     private final String DRIVER = "org.postgresql.Driver";
     private final String USER = "postgres";
     private final String SENHA = "postgres";
-    public static final String URL = "jdbc:postgresql://localhost:5432/db_om_2023_2";
+    public static final String URL = "jdbc:postgresql://localhost:5432/db_om_lpoo_20232";
     private Connection con = null;
 
     

@@ -26,7 +26,7 @@ public class MaoObra implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date tempo_estimado_execucao;
     
-    @Column(nullable = false, length = 20)
+    @Column(nullable = false, precision = 2)
     private Float valor;
     
     public MaoObra() {}

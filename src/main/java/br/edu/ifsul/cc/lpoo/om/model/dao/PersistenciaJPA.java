@@ -12,7 +12,7 @@ import javax.persistence.Persistence;
  *
  * @author 20202PF.CC0012
  */
-public class PersistenciaJPA {
+public class PersistenciaJPA implements InterfacePersistencia {
     public EntityManagerFactory factory;    //fabrica de gerenciadores de entidades
     public EntityManager entity;            //gerenciador de entidades JPA
 
@@ -30,7 +30,7 @@ public class PersistenciaJPA {
 
     public void fecharConexao() {
         
-        entity.close();        
+        entity.close(); 
     }
 
     public Object find(Class c, Object id) throws Exception {

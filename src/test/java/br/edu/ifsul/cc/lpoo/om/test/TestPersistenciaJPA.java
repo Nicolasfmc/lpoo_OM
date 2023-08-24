@@ -17,7 +17,6 @@ public class TestPersistenciaJPA {
             jpa.fecharConexao();
         }else{
             System.out.println("nao conectou no BD ...");
-                        
         }
     }
 }
