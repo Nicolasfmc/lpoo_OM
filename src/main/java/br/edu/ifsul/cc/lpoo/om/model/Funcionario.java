@@ -4,9 +4,7 @@
  */
 package br.edu.ifsul.cc.lpoo.om.model;
 
-import java.io.Serializable;
-import java.util.Calendar;
-import java.util.List;
+import java.util.*;
 import javax.persistence.*;
 
 /**
@@ -15,45 +13,47 @@ import javax.persistence.*;
  */
 
 @Entity
+@DiscriminatorValue("F")
 @Table(name = "tb_funcionario")
-@DiscriminatorValue(value = "F")
 public class Funcionario extends Pessoa {
-    @Column(nullable = false)
+    @Column(nullable = false, length = 11)
     private String numero_ctps;
     
     @Column(nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Calendar data_admissao;
-    
+    @Temporal(TemporalType.DATE)  
+    private Calendar data_admmissao;
+      
     @Column(nullable = true)
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.DATE)    
     private Calendar data_demissao;
+
+    public Funcionario() {
+    }
     
     @ManyToOne
-    @Column(nullable = false)
+    @JoinColumn(name = "cargo_id")
     private Cargo cargo;
-    
-    @ManyToMany
-    @Column(nullable = false)
-    private List<Curso> curso;
 
-    public Funcionario() {}
+    @ManyToMany
+    @JoinTable(name = "tb_funcionario_curso", joinColumns = {@JoinColumn(name = "funcionario_cpf")}, //agregacao, vai gerar uma tabela associativa.
+                                       inverseJoinColumns = {@JoinColumn(name = "curso_id")})
+    private Collection<Curso> cursos;
+
 
     public String getNumero_ctps() {
         return numero_ctps;
     }
 
-
     public void setNumero_ctps(String numero_ctps) {
         this.numero_ctps = numero_ctps;
     }
 
-    public Calendar getData_admissao() {
-        return data_admissao;
+    public Calendar getData_admmissao() {
+        return data_admmissao;
     }
 
-    public void setData_admissao(Calendar data_admissao) {
-        this.data_admissao = data_admissao;
+    public void setData_admmissao(Calendar data_admmissao) {
+        this.data_admmissao = data_admmissao;
     }
 
     public Calendar getData_demissao() {
@@ -63,7 +63,7 @@ public class Funcionario extends Pessoa {
     public void setData_demissao(Calendar data_demissao) {
         this.data_demissao = data_demissao;
     }
-    
+
     public Cargo getCargo() {
         return cargo;
     }
@@ -72,11 +72,19 @@ public class Funcionario extends Pessoa {
         this.cargo = cargo;
     }
 
-    public List<Curso> getCurso() {
-        return curso;
+    public Collection<Curso> getCursos() {
+        return cursos;
     }
 
-    public void setCurso(List<Curso> curso) {
-        this.curso = curso;
-    }   
+    public void setCursos(Collection<Curso> cursos) {
+        if(this.cursos == null) {
+            this.cursos = new ArrayList();
+        }
+        this.cursos = cursos;
+    }
+    
+    public void setCurso(Curso curso) {
+        this.cursos.add(curso);
+    }
+    
 }

@@ -10,28 +10,55 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "tb_cargo")
-public class Cargo implements Serializable {
+@NamedQueries({@NamedQuery(name="Cargo.orderbyid", query="select c from Cargo c order by c.id asc")})
+public class Cargo implements Serializable{
+    
     @Id
+    @SequenceGenerator(name = "seq_cargo", sequenceName = "seq_cargo_id", allocationSize = 1)
+    @GeneratedValue(generator = "seq_cargo", strategy = GenerationType.SEQUENCE)   
     private Integer id;
     
     @Column(nullable = false, length = 100)
     private String descricao;
-    
-    public Cargo() {}
 
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
+    /**
+     * @return the id
+     */
     public Integer getId() {
         return id;
     }
 
+    /**
+     * @param id the id to set
+     */
     public void setId(Integer id) {
         this.id = id;
     }
+
+    /**
+     * @return the descricao
+     */
+    public String getDescricao() {
+        return descricao;
+    }
+
+    /**
+     * @param descricao the descricao to set
+     */
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public Cargo() {
+        
+    }
+
+    public Cargo(Integer id, String descricao) {
+        this.id = id;
+        this.descricao = descricao;
+    }
+    
+    
+    
+    
 }

@@ -14,22 +14,34 @@ import javax.persistence.*;
  */
 
 @Entity
-@Table(name = "tb_maoObra")
-public class MaoObra implements Serializable {
+@Table(name = "tb_maoobra")
+public class MaoObra implements Serializable{
+    
     @Id
-    private Integer id;
+    @SequenceGenerator(name = "seq_maoobra", sequenceName = "seq_maoobra_id", allocationSize = 1)
+    @GeneratedValue(generator = "seq_maobra", strategy = GenerationType.SEQUENCE)       
+    private String id;
     
     @Column(nullable = false, length = 100)
     private String descricao;
     
-    @Column(nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = true)
+    @Temporal(TemporalType.TIME)
     private Date tempo_estimado_execucao;
     
     @Column(nullable = false, precision = 2)
     private Float valor;
-    
-    public MaoObra() {}
+
+    public MaoObra() {
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getDescricao() {
         return descricao;
@@ -37,14 +49,6 @@ public class MaoObra implements Serializable {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public Date getTempo_estimado_execucao() {
@@ -62,4 +66,7 @@ public class MaoObra implements Serializable {
     public void setValor(Float valor) {
         this.valor = valor;
     }
+    
+    
+    
 }

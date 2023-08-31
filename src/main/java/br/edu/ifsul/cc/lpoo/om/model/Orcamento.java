@@ -1,25 +1,24 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package br.edu.ifsul.cc.lpoo.om.model;
 
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.Collection;
 import javax.persistence.*;
 
 /**
  *
  * @author Nicolasfmc
  */
-
 @Entity
 @Table(name = "tb_orcamento")
 public class Orcamento implements Serializable {
+    
     @Id
+    @SequenceGenerator(name = "seq_orcamento", sequenceName = "seq_orcamento_id", allocationSize = 1)
+    @GeneratedValue(generator = "seq_orcamento", strategy = GenerationType.SEQUENCE)           
     private Integer id;
     
-    @Column(nullable = true)
+    @Column(nullable = true, length = 100)
     private String observacoes;
     
     @Column(nullable = false)
@@ -34,131 +33,47 @@ public class Orcamento implements Serializable {
     @JoinColumn(name = "funcionario_cpf", nullable = false)
     private Funcionario funcionario;
     
-    @ManyToMany
-    @JoinTable(name = "tb_orcamento_peca", joinColumns = {@JoinColumn(name = "orcamento_id")}, inverseJoinColumns = {@JoinColumn(name = "peca_id")})
-    private Peca peca;
-    
-    @ManyToMany
-    @JoinTable(name = "tb_orcamento_maoobra", joinColumns = {@JoinColumn(name = "orcamento_id")}, inverseJoinColumns = {@JoinColumn(name = "maoobra_id")})
-    private MaoObra maoObra;
-    
-    @ManyToMany
-    @JoinTable(name = "tb_orcamento_veiculo", joinColumns = {@JoinColumn(name = "orcamento_id")}, inverseJoinColumns = {@JoinColumn(name = "veiculo_id")})
+    @ManyToOne
+    @JoinColumn(name = "veiculo_id", nullable = false)
     private Veiculo veiculo;
+   
+    @ManyToMany
+    @JoinTable(name = "tb_orcamento_peca", joinColumns = {@JoinColumn(name = "orcamento_id")}, //agregacao, vai gerar uma tabela associativa.
+                                       inverseJoinColumns = {@JoinColumn(name = "peca_id")})        
+    private Collection<Peca> pecas;
     
-    public Orcamento() {}
+    @ManyToMany
+    @JoinTable(name = "tb_orcamento_maoobra", joinColumns = {@JoinColumn(name = "orcamento_id")}, //agregacao, vai gerar uma tabela associativa.
+                                       inverseJoinColumns = {@JoinColumn(name = "maoobra_id")})      
+    private Collection<MaoObra> maoobras;
 
-    /**
-     * @return the id
-     */
+    public Orcamento() {
+    }
+
     public Integer getId() {
         return id;
     }
 
-    /**
-     * @param id the id to set
-     */
     public void setId(Integer id) {
         this.id = id;
     }
 
-    /**
-     * @return the observacoes
-     */
     public String getObservacoes() {
         return observacoes;
     }
 
-    /**
-     * @param observacoes the observacoes to set
-     */
     public void setObservacoes(String observacoes) {
         this.observacoes = observacoes;
     }
 
-    /**
-     * @return the data
-     */
     public Calendar getData() {
         return data;
     }
 
-    /**
-     * @param data the data to set
-     */
     public void setData(Calendar data) {
         this.data = data;
     }
-
-    /**
-     * @return the cliente
-     */
-    public Cliente getCliente() {
-        return cliente;
-    }
-
-    /**
-     * @param cliente the cliente to set
-     */
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
-    }
-
-    /**
-     * @return the funcionario
-     */
-    public Funcionario getFuncionario() {
-        return funcionario;
-    }
-
-    /**
-     * @param funcionario the funcionario to set
-     */
-    public void setFuncionario(Funcionario funcionario) {
-        this.funcionario = funcionario;
-    }
-
-    /**
-     * @return the peca
-     */
-    public Peca getPeca() {
-        return peca;
-    }
-
-    /**
-     * @param peca the peca to set
-     */
-    public void setPeca(Peca peca) {
-        this.peca = peca;
-    }
-
-    /**
-     * @return the maoObra
-     */
-    public MaoObra getMaoObra() {
-        return maoObra;
-    }
-
-    /**
-     * @param maoObra the maoObra to set
-     */
-    public void setMaoObra(MaoObra maoObra) {
-        this.maoObra = maoObra;
-    }
-
-    /**
-     * @return the veiculo
-     */
-    public Veiculo getVeiculo() {
-        return veiculo;
-    }
-
-    /**
-     * @param veiculo the veiculo to set
-     */
-    public void setVeiculo(Veiculo veiculo) {
-        this.veiculo = veiculo;
-    }
+    
     
     
 }

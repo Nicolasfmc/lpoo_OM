@@ -5,18 +5,13 @@
 package br.edu.ifsul.cc.lpoo.om.test;
 
 import br.edu.ifsul.cc.lpoo.om.model.dao.PersistenciaJDBC;
+import org.junit.Test;
 
 /**
  *
  * @author Nicolasfmc
  */
 public class TestPersistenciaJDBC {
-     //@Test
-    public void testPersistenciaProcedimento() throws Exception {
-        
-        //Reavaliação da Primeira Etapa
-    }
-    
     //@Test
     public void testPersistenciaConexao() throws Exception {
         

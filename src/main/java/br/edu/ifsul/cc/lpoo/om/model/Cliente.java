@@ -4,8 +4,7 @@
  */
 package br.edu.ifsul.cc.lpoo.om.model;
 
-import java.io.Serializable;
-import java.util.List;
+import java.util.Collection;
 import javax.persistence.*;
 
 /**
@@ -16,30 +15,42 @@ import javax.persistence.*;
 @Entity
 @Table(name = "tb_cliente")
 @DiscriminatorValue(value = "C")
-public class Cliente extends Pessoa {
-    @Column(nullable = true)
+public class Cliente extends Pessoa{
+    
+    @Column(nullable = true, length = 200)
     private String observacoes;
-
+    
+    
     @ManyToMany
-    @JoinTable(name = "tb_cliente_veiculo", joinColumns = {@JoinColumn(name = "cliente_cpf")},
-            inverseJoinColumns = {@JoinColumn(name = "veiculo_id")})
-    private List<Veiculo> veiculos;
-    
-    public Cliente() {}
-    
+    @JoinTable(name = "tb_cliente_veiculo", joinColumns = {@JoinColumn(name = "cliente_cpf")}, //agregacao, vai gerar uma tabela associativa.
+                                       inverseJoinColumns = {@JoinColumn(name = "veiculo_id")})      
+    private Collection<Veiculo> veiculo;
+
+    public Cliente() {
+    }
+
+    /**
+     * @return the observacoes
+     */
     public String getObservacoes() {
         return observacoes;
     }
 
+    /**
+     * @param observacoes the observacoes to set
+     */
     public void setObservacoes(String observacoes) {
         this.observacoes = observacoes;
     }
-    
-    public List<Veiculo> getVeiculos() {
-        return veiculos;
+
+    public Collection<Veiculo> getVeiculo() {
+        return veiculo;
     }
 
-    public void setVeiculos(List<Veiculo> veiculos) {
-        this.veiculos = veiculos;
+    public void setVeiculo(Collection<Veiculo> veiculo) {
+        this.veiculo = veiculo;
     }
+    
+    
+    
 }

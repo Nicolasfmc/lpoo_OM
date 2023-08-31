@@ -15,19 +15,22 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "tb_pagamento")
-public class Pagamento implements Serializable {
+public class Pagamento implements Serializable{
+    
     @Id
+    @SequenceGenerator(name = "seq_pagamento", sequenceName = "seq_pagamento_id", allocationSize = 1)
+    @GeneratedValue(generator = "seq_pagamento", strategy = GenerationType.SEQUENCE)   
     private Integer id;
     
-    @Column(nullable = false)
+    @Column(nullable = false)    
     private Integer numero_parcela;
     
     @Column(nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)  
     private Calendar data_vencimento;
     
-    @Column(nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = true)
+    @Temporal(TemporalType.DATE)  
     private Calendar data_pagamento;
     
     @Column(nullable = false, precision = 2)
@@ -37,7 +40,8 @@ public class Pagamento implements Serializable {
     @JoinColumn(nullable = false, name = "servico_id")
     private Servico servico;
     
-    public Pagamento () {}
+    public Pagamento() {
+    }
 
     /**
      * @return the id
@@ -109,14 +113,19 @@ public class Pagamento implements Serializable {
         this.valor = valor;
     }
 
+    /**
+     * @return the servico
+     */
     public Servico getServico() {
         return servico;
     }
 
+    /**
+     * @param servico the servico to set
+     */
     public void setServico(Servico servico) {
         this.servico = servico;
     }
-
     
     
     

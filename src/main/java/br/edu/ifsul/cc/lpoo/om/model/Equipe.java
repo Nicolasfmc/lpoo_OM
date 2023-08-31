@@ -5,7 +5,7 @@
 package br.edu.ifsul.cc.lpoo.om.model;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Collection;
 import javax.persistence.*;
 
 /**
@@ -15,22 +15,27 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "tb_equipe")
-public class Equipe implements Serializable {
+public class Equipe implements Serializable{
+    
     @Id
+    @SequenceGenerator(name = "seq_equipe", sequenceName = "seq_equipe_id", allocationSize = 1)
+    @GeneratedValue(generator = "seq_equipe", strategy = GenerationType.SEQUENCE)       
     private Integer id;
     
-    @Column(nullable = false)
+    @Column(nullable = false, length = 100)
     private String nome;
     
-    @Column(nullable = false)
+    @Column(nullable = true, length = 100)
     private String especialidades;
     
     @ManyToMany
-    @JoinTable(name = "tb_equipe_funcionario", joinColumns = {@JoinColumn(name = "equipe_id")},
-            inverseJoinColumns = {@JoinColumn(name = "funcionario_ctps")})
-    private List<Funcionario> funcionarios;
-    
-    public Equipe() {}
+    @JoinTable(name = "tb_equipe_funcionario", joinColumns = {@JoinColumn(name = "equipe_id")}, //agregacao, vai gerar uma tabela associativa.
+                                       inverseJoinColumns = {@JoinColumn(name = "funcionario_cpf")})   
+ 
+    private Collection<Funcionario> funcionarios;
+
+    public Equipe() {
+    }
 
     /**
      * @return the id
@@ -74,19 +79,12 @@ public class Equipe implements Serializable {
         this.especialidades = especialidades;
     }
 
-    /**
-     * @return the funcionarios
-     */
-    public List<Funcionario> getFuncionarios() {
+    public Collection<Funcionario> getFuncionarios() {
         return funcionarios;
     }
 
-    /**
-     * @param funcionarios the funcionarios to set
-     */
-    public void setFuncionarios(List<Funcionario> funcionarios) {
+    public void setFuncionarios(Collection<Funcionario> funcionarios) {
         this.funcionarios = funcionarios;
     }
-    
     
 }

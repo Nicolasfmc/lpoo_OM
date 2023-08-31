@@ -15,7 +15,10 @@ import javax.persistence.*;
 @Entity
 @Table(name = "tb_peca")
 public class Peca implements Serializable {
+
     @Id
+    @SequenceGenerator(name = "seq_peca", sequenceName = "seq_peca_id", allocationSize = 1)
+    @GeneratedValue(generator = "seq_peca", strategy = GenerationType.SEQUENCE)              
     private Integer id;
     
     @Column(nullable = false, length = 100)
@@ -24,17 +27,10 @@ public class Peca implements Serializable {
     @Column(nullable = false, precision = 2)
     private Float valor;
     
-    @Column(nullable = false, length = 100)
+    @Column(nullable = true, length = 200)
     private String fornecedor;
-    
-    public Peca() {}
 
-    public String getFornecedor() {
-        return fornecedor;
-    }
-
-    public void setFornecedor(String fornecedor) {
-        this.fornecedor = fornecedor;
+    public Peca() {
     }
 
     public Integer getId() {
@@ -60,4 +56,14 @@ public class Peca implements Serializable {
     public void setValor(Float valor) {
         this.valor = valor;
     }
+
+    public String getFornecedor() {
+        return fornecedor;
+    }
+
+    public void setFornecedor(String fornecedor) {
+        this.fornecedor = fornecedor;
+    }
+    
+    
 }

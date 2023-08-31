@@ -5,7 +5,7 @@
 package br.edu.ifsul.cc.lpoo.om.model;
 
 import java.io.Serializable;
-import java.util.Calendar;
+import java.util.*;
 import javax.persistence.*;
 
 /**
@@ -15,38 +15,41 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "tb_servico")
-public class Servico implements Serializable {
+public class Servico implements Serializable{
+
     @Id
+    @SequenceGenerator(name = "seq_servico", sequenceName = "seq_servicos_id", allocationSize = 1)
+    @GeneratedValue(generator = "seq_servico", strategy = GenerationType.SEQUENCE)       
     private Integer id;
     
-    @Column(nullable = false)
+    @Column(nullable = false, precision = 2)
     private Float valor;
     
     @Column(nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)  
     private Calendar data_inicio;
     
     @Column(nullable = true)
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)  
     private Calendar data_fim;
     
-    @OneToMany
-    @Column(nullable = false)
-    private Pagamento pagamento;
-    
     @ManyToOne
-    @Column(nullable = false)
+    @JoinColumn(name = "equipe_id", nullable = false)
     private Equipe equipe;
     
-    @ManyToOne
+    @OneToMany(mappedBy = "servico")
+    private Collection<Pagamento> parcelas;
+    
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private StatusServico status;
+    
+    @ManyToOne
+    @JoinColumn(name = "orcamento_id", nullable = false)
     private Orcamento orcamento;
-    
-    @ManyToOne
-    @Column(nullable = false)
-    private StatusServico statusServico;
-    
-    public Servico() {}
+
+    public Servico() {
+    }
 
     /**
      * @return the id
@@ -105,20 +108,6 @@ public class Servico implements Serializable {
     }
 
     /**
-     * @return the pagamento
-     */
-    public Pagamento getPagamento() {
-        return pagamento;
-    }
-
-    /**
-     * @param pagamento the pagamento to set
-     */
-    public void setPagamento(Pagamento pagamento) {
-        this.pagamento = pagamento;
-    }
-
-    /**
      * @return the equipe
      */
     public Equipe getEquipe() {
@@ -130,6 +119,34 @@ public class Servico implements Serializable {
      */
     public void setEquipe(Equipe equipe) {
         this.equipe = equipe;
+    }
+
+    /**
+     * @return the parcelas
+     */
+    public Collection<Pagamento> getParcelas() {
+        return parcelas;
+    }
+
+    /**
+     * @param parcelas the parcelas to set
+     */
+    public void setParcelas(Collection<Pagamento> parcelas) {
+        this.parcelas = parcelas;
+    }
+
+    /**
+     * @return the status
+     */
+    public StatusServico getStatus() {
+        return status;
+    }
+
+    /**
+     * @param status the status to set
+     */
+    public void setStatus(StatusServico status) {
+        this.status = status;
     }
 
     /**
@@ -145,20 +162,8 @@ public class Servico implements Serializable {
     public void setOrcamento(Orcamento orcamento) {
         this.orcamento = orcamento;
     }
-
-    /**
-     * @return the statusServico
-     */
-    public StatusServico getStatusServico() {
-        return statusServico;
-    }
-
-    /**
-     * @param statusServico the statusServico to set
-     */
-    public void setStatusServico(StatusServico statusServico) {
-        this.statusServico = statusServico;
-    }
+    
+    
     
     
 }

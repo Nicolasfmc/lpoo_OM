@@ -4,6 +4,9 @@
  */
 package br.edu.ifsul.cc.lpoo.om.model.dao;
 
+import br.edu.ifsul.cc.lpoo.om.model.Cargo;
+import br.edu.ifsul.cc.lpoo.om.model.Funcionario;
+import java.util.Collection;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -19,7 +22,7 @@ public class PersistenciaJPA implements InterfacePersistencia {
     public PersistenciaJPA(){
         
         //parametro: é o nome da unidade de persistencia (Persistence Unit)
-        factory = Persistence.createEntityManagerFactory("db_om_2023_2");
+        factory = Persistence.createEntityManagerFactory("db_om_lpoo_20232");
         entity = factory.createEntityManager();
     }
     
@@ -50,5 +53,15 @@ public class PersistenciaJPA implements InterfacePersistencia {
         entity.getTransaction().begin();// abrir a transacao.
         entity.remove(o); //realiza o delete
         entity.getTransaction().commit(); //comita a transacao (comando sql)                
+    }
+
+    @Override
+    public Collection<Cargo> listCargo() throws Exception {
+        return entity.createNamedQuery("Cargo.orderbyid").getResultList();
+    }
+
+    @Override
+    public Collection<Funcionario> listFuncionario() throws Exception {
+        return entity.createNamedQuery("Funcionario.orderbyid").getResultList();
     }
 }

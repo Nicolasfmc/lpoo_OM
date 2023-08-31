@@ -4,9 +4,12 @@
  */
 package br.edu.ifsul.cc.lpoo.om.model.dao;
 
+import br.edu.ifsul.cc.lpoo.om.model.Cargo;
+import br.edu.ifsul.cc.lpoo.om.model.Funcionario;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Collection;
 
 /**
  *
@@ -70,6 +73,16 @@ public class PersistenciaJDBC implements InterfacePersistencia {
 
     @Override
     public void remover(Object o) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public Collection<Cargo> listCargo() throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public Collection<Funcionario> listFuncionario() throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
