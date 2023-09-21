@@ -20,5 +20,5 @@ public interface InterfacePersistencia {
     public void remover(Object o) throws Exception;
     
     public Collection<Cargo> listCargos() throws Exception;
-    
+    public Collection<Funcionario> listFuncionarios() throws Exception;
 }

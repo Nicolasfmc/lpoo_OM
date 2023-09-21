@@ -149,4 +149,9 @@ public class PersistenciaJDBC implements InterfacePersistencia {
         return colecaoRetorno;
     }
 
+    @Override
+    public Collection<Funcionario> listFuncionarios() throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
 }

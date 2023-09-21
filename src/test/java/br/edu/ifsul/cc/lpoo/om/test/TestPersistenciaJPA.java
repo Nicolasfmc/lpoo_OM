@@ -29,7 +29,7 @@ public class TestPersistenciaJPA {
         //criar um objeto do tipo PersistenciaJPA.
         PersistenciaJPA jpa = new PersistenciaJPA();
         if(jpa.conexaoAberta()){
-            Collection<Cargo> cg = jpa.listCargo();
+            Collection<Cargo> cg = jpa.listCargos();
              if(!cg.isEmpty()){
             
                 var i = 1;
